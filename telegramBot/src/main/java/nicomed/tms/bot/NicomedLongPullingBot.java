@@ -1,10 +1,9 @@
-package nicomed.tms.server.bot;
+package nicomed.tms.bot;
 
 import lombok.extern.slf4j.Slf4j;
 import nicomed.tms.bot.command.*;
-import nicomed.tms.server.bot.service.CommandsServiceImpl;
-import nicomed.tms.server.bot.service.ICommandsService;
-import nicomed.tms.server.bot.command.*;
+import nicomed.tms.bot.service.CommandsServiceImpl;
+import nicomed.tms.bot.service.ICommandsService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
@@ -58,6 +57,7 @@ public class NicomedLongPullingBot extends TelegramLongPollingBot {
                 String receivedText = receivedMessage.getText();
                 String chatId = receivedMessage.getChatId().toString();
                 BaseBotCommand command = commandsService.isCommand(receivedText) ? commandsService.get(receivedText) : commandsService.getDefaultCommand();
+                log.info("command -" + command.getCommand());
                 sendMessage(new SendMessage(
                         chatId,
                         command.getMessageText(receivedText)));

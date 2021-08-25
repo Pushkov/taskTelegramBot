@@ -1,9 +1,9 @@
-package nicomed.tms.server.bot.command;
+package nicomed.tms.bot.command;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
-import nicomed.tms.server.bot.service.ICommandsService;
+import nicomed.tms.bot.service.ICommandsService;
 
 import java.util.stream.Collectors;
 

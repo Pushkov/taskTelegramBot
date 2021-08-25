@@ -1,9 +1,9 @@
-package nicomed.tms.server.bot.service;
+package nicomed.tms.bot.service;
 
 import lombok.extern.slf4j.Slf4j;
-import nicomed.tms.server.bot.command.BadCommand;
-import nicomed.tms.server.bot.command.BaseBotCommand;
-import nicomed.tms.server.bot.util.Constants;
+import nicomed.tms.bot.command.BadCommand;
+import nicomed.tms.bot.command.BaseBotCommand;
+import nicomed.tms.bot.util.Constants;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.objects.commands.BotCommand;
 

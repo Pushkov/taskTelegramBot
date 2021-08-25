@@ -1,4 +1,4 @@
-package nicomed.tms.server.bot.command;
+package nicomed.tms.bot.command;
 
 import lombok.NonNull;
 import org.telegram.telegrambots.meta.api.objects.commands.BotCommand;

@@ -1,4 +1,4 @@
-package nicomed.tms.server.bot.command;
+package nicomed.tms.bot.command;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;

@@ -1,7 +1,7 @@
-package nicomed.tms.server.bot.service;
+package nicomed.tms.bot.service;
 
 import lombok.extern.slf4j.Slf4j;
-import nicomed.tms.server.bot.util.Constants;
+import nicomed.tms.bot.util.Constants;
 import org.springframework.beans.factory.annotation.Value;
 
 @Slf4j

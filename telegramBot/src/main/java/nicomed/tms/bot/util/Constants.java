@@ -1,4 +1,4 @@
-package nicomed.tms.server.bot.util;
+package nicomed.tms.bot.util;
 
 public class Constants {
     public static final String COMMAND_PREFIX = "/";

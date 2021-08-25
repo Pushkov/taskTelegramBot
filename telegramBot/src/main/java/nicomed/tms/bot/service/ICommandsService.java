@@ -1,6 +1,6 @@
-package nicomed.tms.server.bot.service;
+package nicomed.tms.bot.service;
 
-import nicomed.tms.server.bot.command.BaseBotCommand;
+import nicomed.tms.bot.command.BaseBotCommand;
 
 import java.util.Set;
 
