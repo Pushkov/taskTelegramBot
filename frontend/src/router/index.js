@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Index from '@/views/IndexPage.vue'
-import Engineers from '@/views/CityListPage.vue'
+import Cities from '@/views/CityListPage.vue'
 
 Vue.use(VueRouter)
 
@@ -18,24 +18,30 @@ const routes = [
   },
   {
     path:'/tms/index',
+    meta: { title: 'Start page' },
     component: Index
   },
   {
     path:'/tms/cities',
-    component: Engineers
+    meta: { title: 'Cities' },
+    component: Cities
   },
 
   {
     path: '/tms/about',
-    name: 'About',
+    meta: { title: 'About' },
     component: () => import('@/views/AboutPage.vue')
   }
 ]
 
 const router = new VueRouter({
   mode: 'history',
-  // base: process.env.BASE_URL,
   routes
 })
+
+router.beforeEach((to, from, next) => {
+  document.title = to.meta.title
+  next()
+});
 
 export default router
