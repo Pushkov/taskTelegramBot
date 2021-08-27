@@ -1,6 +1,6 @@
 <template>
     <tr>
-        <td @click="showCityModal">
+        <td @click="getCityModal">
             <h3>{{city.name}}</h3>
         </td>
         <td>
@@ -8,7 +8,11 @@
                 <ul v-for="place of getFilteredPlaces('GOOD')"
                     :key="place.id"
                 >
-                    <PlaceTableRow :place="place"/>
+                    <PlaceTableRow
+                            :place="place"
+                            @getPlaceInModal="getPlaceModal(place)"
+                    />
+
                 </ul>
             </div>
             <div v-else>
@@ -20,7 +24,10 @@
                 <p v-for="place of getFilteredPlaces('BAD')"
                    :key="place.id"
                 >
-                    <PlaceTableRow :place="place"/>
+                    <PlaceTableRow
+                            :place="place"
+                            @getPlaceInModal="getPlaceModal(place)"
+                    />
                 </p>
             </div>
             <div v-else>
@@ -47,12 +54,14 @@
         components: {
             PlaceTableRow
         },
-        computed: {
-
-        },
+        computed: {},
         methods: {
-            showCityModal() {
+            getCityModal() {
                 this.$emit('getCityModal', this.city);
+            },
+            getPlaceModal(place) {
+                // console.log("cityTableRow - getPlaceModal " + place.name)
+                this.$emit('getPlaceModal', place);
             },
             getFilteredPlaces(grade) {
                 return this.city.places.filter(function (e) {

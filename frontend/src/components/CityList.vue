@@ -2,7 +2,7 @@
     <div class="w-75 m-auto">
 
         <CityModal
-                v-if="isModal"
+                v-if="isCityModal"
                 :popup-title="getCityModalTitle"
                 :is-edit="isModalEdit"
                 @closeUserModal="closeCityModal"
@@ -24,11 +24,36 @@
             />
         </CityModal>
 
+        <CityModal
+                v-if="isPlaceModal"
+                :popup-title="getPlaceModalTitle"
+                :is-edit="isModalEdit"
+                @closeUserModal="closePlaceModal"
+        >
+            <PlaceViewModal
+                    ref="engineerView"
+                    :cities="CITIES"
+                    :item="currentPlace"
+                    :is-edit="isModalEdit"
+                    @returnUser='returnPlace'
+            />
+            <CityFooterModel
+                    slot="footer"
+                    @modalClose="closePlaceModal"
+                    @saveItem='savePlace'
+                    @deleteItem="deletePlace"
+                    @editItem="editPlace"
+                    :is-edit="isModalEdit"
+                    :is-create="isModalCreate"
+            />
+        </CityModal>
+
+
 
         <div v-if="3 > 0">
             <div class="text-left my-3">
                 <b-button @click="createCity" class="mr-1"><h5 class="m-auto">Добавить город</h5></b-button>
-                <b-button class="mr-1"><h5 class="m-auto">Добавить место</h5></b-button>
+                <b-button @click="createPlace" class="mr-1"><h5 class="m-auto">Добавить место</h5></b-button>
             </div>
 
             <table class="table table-hover table-bordered table-striped">
@@ -45,6 +70,7 @@
                         :city="city"
                         :key="city.id"
                         @getCityModal = "showCityModal(city)"
+                        @getPlaceModal = "showPlaceModal"
                 />
                 </tbody>
             </table>
@@ -62,17 +88,21 @@
     import CityModal from "./modals/CityModal";
     import CityViewModal from "./modals/CityViewModal";
     import CityFooterModel from "./modals/CityFooterModal";
+    import PlaceViewModal from "./modals/PlaceViewModal";
     export default {
         name: "CityList",
         data() {
             return {
                 currentCity:{},
-                isModal: false,
+                currentPlace:{},
+                isCityModal: false,
+                isPlaceModal: false,
                 isModalEdit: false,
                 isModalCreate: false
             }
         },
         components: {
+            PlaceViewModal,
             CityFooterModel,
             CityViewModal,
             CityModal,
@@ -87,7 +117,12 @@
                 return this.isModalCreate
                     ? 'Создать запись о новом городе'
                     : 'Информация о городе';
-            }
+            },
+            getPlaceModalTitle() {
+                return this.isModalCreate
+                    ? 'Создать запись о новом месте в городе'
+                    : 'Информация о месте в городе';
+            },
         },
         methods: {
             ...mapActions([
@@ -95,12 +130,12 @@
             ]),
             showCityModal(city) {
                 this.isModalCreate = false;
-                this.isModal = true;
+                this.isCityModal = true;
                 this.isModalEdit = false;
                 this.currentCity = city;
             },
             closeCityModal() {
-                this.isModal = false;
+                this.isCityModal = false;
                 this.isModalEdit = false;
                 this.isModalCreate = false;
             },
@@ -109,7 +144,7 @@
             },
             createCity(){
                 this.isModalCreate = true;
-                this.isModal = true;
+                this.isCityModal = true;
                 this.isModalEdit = true;
                 this.currentCity = {};
             },
@@ -119,10 +154,41 @@
             deleteCity() {
                 this.closeCityModal();
             },
-            editCity(city) {
-                console.log(city)
+            editCity(isEdit) {
+                console.log(isEdit)
+                this.isModalEdit = isEdit;
+            },
+            showPlaceModal(place) {
+                this.isModalCreate = false;
+                this.isPlaceModal = true;
+                this.isModalEdit = false;
+                this.currentPlace = place;
+            },
+            closePlaceModal() {
+                this.isPlaceModal = false;
+                this.isModalEdit = false;
+                this.isModalCreate = false;
+            },
+            returnPlace(place) {
+                this.currentPlace = place;
+            },
+            createPlace(){
+                this.isModalCreate = true;
+                this.isPlaceModal = true;
                 this.isModalEdit = true;
-            }
+                this.currentPlace = {};
+            },
+            savePlace(){
+                this.closePlaceModal();
+            },
+            deletePlace() {
+                this.closePlaceModal();
+            },
+            editPlace(isEdit) {
+                console.log(isEdit)
+                this.isModalEdit = isEdit;
+            },
+
 
         },
         mounted() {
