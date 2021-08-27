@@ -8,7 +8,7 @@
                 @closeUserModal="closeCityModal"
         >
             <CityViewModal
-                    ref="engineerView"
+                    ref="cityView"
                     :item="currentCity"
                     :is-edit="isModalEdit"
                     @returnUser='returnCity'
@@ -31,7 +31,7 @@
                 @closeUserModal="closePlaceModal"
         >
             <PlaceViewModal
-                    ref="engineerView"
+                    ref="placeView"
                     :cities="CITIES"
                     :item="currentPlace"
                     :is-edit="isModalEdit"
@@ -47,8 +47,6 @@
                     :is-create="isModalCreate"
             />
         </CityModal>
-
-
 
         <div v-if="3 > 0">
             <div class="text-left my-3">
@@ -69,8 +67,8 @@
                         v-for="city of CITIES"
                         :city="city"
                         :key="city.id"
-                        @getCityModal = "showCityModal(city)"
-                        @getPlaceModal = "showPlaceModal"
+                        @getCityModal="showCityModal(city)"
+                        @getPlaceModal="showPlaceModal"
                 />
                 </tbody>
             </table>
@@ -89,12 +87,13 @@
     import CityViewModal from "./modals/CityViewModal";
     import CityFooterModel from "./modals/CityFooterModal";
     import PlaceViewModal from "./modals/PlaceViewModal";
+
     export default {
         name: "CityList",
         data() {
             return {
-                currentCity:{},
-                currentPlace:{},
+                currentCity: {},
+                currentPlace: {},
                 isCityModal: false,
                 isPlaceModal: false,
                 isModalEdit: false,
@@ -126,7 +125,14 @@
         },
         methods: {
             ...mapActions([
-                'GET_ALL_CITIES'
+                'GET_ALL_CITIES',
+                'CREATE_CITY',
+                'UPDATE_CITY',
+                'DELETE_CITY',
+                'GET_ALL_PLACES',
+                'CREATE_PLACE',
+                'UPDATE_PLACE',
+                'DELETE_PLACE'
             ]),
             showCityModal(city) {
                 this.isModalCreate = false;
@@ -142,16 +148,23 @@
             returnCity(city) {
                 this.currentCity = city;
             },
-            createCity(){
+            createCity() {
                 this.isModalCreate = true;
                 this.isCityModal = true;
                 this.isModalEdit = true;
                 this.currentCity = {};
             },
-            saveCity(){
+            saveCity() {
+                this.$refs.cityView.returnUser();
+                if (this.currentCity.id === undefined) {
+                    this.CREATE_CITY(this.currentCity);
+                } else
+                    this.UPDATE_CITY(this.currentCity);
                 this.closeCityModal();
             },
             deleteCity() {
+                this.$refs.cityView.returnUser();
+                this.DELETE_CITY(this.currentCity);
                 this.closeCityModal();
             },
             editCity(isEdit) {
@@ -172,24 +185,29 @@
             returnPlace(place) {
                 this.currentPlace = place;
             },
-            createPlace(){
+            createPlace() {
                 this.isModalCreate = true;
                 this.isPlaceModal = true;
                 this.isModalEdit = true;
                 this.currentPlace = {};
             },
-            savePlace(){
+            savePlace() {
+                this.$refs.placeView.returnUser();
+                if (this.currentPlace.id === undefined) {
+                    this.CREATE_PLACE(this.currentPlace);
+                } else
+                    this.UPDATE_PLACE(this.currentPlace);
                 this.closePlaceModal();
             },
             deletePlace() {
+                this.$refs.placeView.returnUser();
+                this.DELETE_PLACE(this.currentPlace);
                 this.closePlaceModal();
             },
             editPlace(isEdit) {
                 console.log(isEdit)
                 this.isModalEdit = isEdit;
-            },
-
-
+            }
         },
         mounted() {
             this.GET_ALL_CITIES();

@@ -56,6 +56,7 @@ public class NicomedLongPullingBot extends TelegramLongPollingBot {
                 Message receivedMessage = update.getMessage();
                 String receivedText = receivedMessage.getText();
                 String chatId = receivedMessage.getChatId().toString();
+                log.info("received text: " + receivedText);
                 BaseBotCommand command = commandsService.isCommand(receivedText) ? commandsService.get(receivedText) : commandsService.getDefaultCommand();
                 log.info("command -" + command.getCommand());
                 sendMessage(new SendMessage(

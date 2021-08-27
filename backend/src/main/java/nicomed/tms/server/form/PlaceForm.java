@@ -26,5 +26,4 @@ public class PlaceForm {
                 .grade(place.getGrade().name())
                 .build();
     }
-
 }

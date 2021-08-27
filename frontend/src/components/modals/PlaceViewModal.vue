@@ -11,7 +11,7 @@
         </div>
         <div class="row my-1 mx-2">
             <div class="col-4 mr-2">Город:</div>
-            <select
+            <select v-if="isEdit"
                     class="col-sm text-secondary bg-light border rounded-lg"
                     v-model="itemUser.city"
             >
@@ -23,6 +23,12 @@
                     {{option.name}}
                 </option>
             </select>
+            <b-input
+                    v-else
+                    class="col-sm text-secondary  border rounded-lg"
+                    readonly
+                    :value="itemUser.city"
+            />
         </div>
         <div class="row my-1 mx-2">
             <div class="col-4 mr-2 ">Название:</div>
@@ -35,7 +41,9 @@
         <div class="row my-1 mx-2">
             <div class="col-4 mr-2">Оценка:</div>
             <select
+                    v-if="isEdit"
                     class="col-sm text-secondary bg-light border rounded-lg"
+                    :readonly="!isEdit"
                     v-model="itemUser.grade"
             >
                 <option
@@ -46,6 +54,12 @@
                     {{option.text}}
                 </option>
             </select>
+            <b-input
+                    v-else
+                    class="col-sm text-secondary  border rounded-lg"
+                    readonly
+                    :value="itemUser.grade === 'GOOD' ?'Рекомендовано':'Не рекомендовано'"
+            />
         </div>
     </div>
 </template>

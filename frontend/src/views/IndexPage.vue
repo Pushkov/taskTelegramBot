@@ -1,7 +1,7 @@
 <template>
     <div>
         <NavigationBar/>
-        <HelloWorld msg="Welcome to Nicomed`s training App"/>
+        <HelloWorld msg="Добро пожаловать!"/>
     </div>
 </template>
 

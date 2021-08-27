@@ -2,6 +2,7 @@ package nicomed.tms.server.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import nicomed.tms.server.enums.Grade;
@@ -13,6 +14,7 @@ import javax.persistence.*;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class Place {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

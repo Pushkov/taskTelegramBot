@@ -32,9 +32,9 @@
     </properties>
 
     <modules>
-        <module>telegramBot</module>
-        <module>backend</module>
         <module>frontend</module>
+        <module>backend</module>
+        <module>telegramBot</module>
     </modules>
 
     <dependencies>

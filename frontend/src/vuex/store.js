@@ -26,10 +26,10 @@ let store = new Vuex.Store({
                     }
                 )
         },
-        CREATE_CITY: ({dispatch},engineer) => {
+        CREATE_CITY: ({dispatch},city) => {
             AXIOS.post(
                 '/city',
-                engineer
+                city
             ).then(() => {
                 dispatch('GET_ALL_CITIES');
             })
@@ -47,7 +47,39 @@ let store = new Vuex.Store({
             ).then(() => {
                 dispatch('GET_ALL_CITIES');
             })
-        }
+        },
+        GET_ALL_PLACES: async ({commit}) => {
+            await AXIOS.get('/place')
+                .then(responce => {
+                    commit('GET_PLACES', responce.data);
+                })
+                .catch( error => {
+                        commit('SET_ERROR_LIST_LOADING_MESSAGE', error.message)
+                    }
+                )
+        },
+        CREATE_PLACE: ({dispatch},place) => {
+            AXIOS.post(
+                '/place',
+                place
+            ).then(() => {
+                dispatch('GET_ALL_CITIES');
+            })
+        },
+        UPDATE_PLACE: ({dispatch}, place) => {
+            AXIOS.put(
+                '/place/' + place.id,
+                place
+            ).then(() => {
+                dispatch('GET_ALL_CITIES');
+            })
+        },
+        DELETE_PLACE: ({dispatch}, place) => {
+            AXIOS.delete('/place/' + place.id
+            ).then(() => {
+                dispatch('GET_ALL_CITIES');
+            })
+        },
     },
     mutations: {
         GET_CITIES: (state, cities) => {
