@@ -29,7 +29,12 @@ public class NonCommand extends BaseBotCommand {
     @Override
     public String getMessageText(String text) {
         String url = "http://localhost:8080/tms/api/city/" + text;
-        CityForm result = REST_TEMPLATE.getForObject(url, CityForm.class);
+        CityForm result;
+        try {
+            result = REST_TEMPLATE.getForObject(url, CityForm.class);
+        } catch (Exception e) {
+            return getMessageText();
+        }
         return result.toString();
     }
 }
