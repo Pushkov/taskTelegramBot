@@ -16,5 +16,4 @@ public class PlaceForm {
     private String grade;
 
 
-
 }

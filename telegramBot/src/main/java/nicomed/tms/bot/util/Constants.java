@@ -7,6 +7,5 @@ import org.springframework.web.client.RestTemplate;
 public class Constants {
     public static final String COMMAND_PREFIX = "/";
     public static final String COMMAND_DELIMETR = "@";
-
-     public  static  final RestTemplate REST_TEMPLATE = new RestTemplate();
+    public static final RestTemplate REST_TEMPLATE = new RestTemplate();
 }

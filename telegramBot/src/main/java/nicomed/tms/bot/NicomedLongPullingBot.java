@@ -4,7 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import nicomed.tms.bot.command.*;
 import nicomed.tms.bot.service.CommandsServiceImpl;
 import nicomed.tms.bot.service.ICommandsService;
-import org.springframework.beans.factory.annotation.Value;
+import nicomed.tms.bot.util.BotConfig;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
@@ -16,22 +16,17 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 @Slf4j
 public class NicomedLongPullingBot extends TelegramLongPollingBot {
 
-    @Value("${bot.token}")
-    private String TOKEN;
-    @Value("${bot.username}")
-    private String USER_NAME;
-    @Value("${bot.name}")
-    private String NAME;
-
+    private final BotConfig config;
     private final ICommandsService commandsService;
 
-    public NicomedLongPullingBot() {
+    public NicomedLongPullingBot(BotConfig config) {
+        this.config = config;
         commandsService = new CommandsServiceImpl();
         initCommands();
     }
 
     private void initCommands() {
-        commandsService.setDefaultCommand(new NonCommand());
+        commandsService.setDefaultCommand(new NonCommand(config));
         commandsService.register(new StartCommand());
         commandsService.register(new InfoCommand());
         commandsService.register(new HelpCommand(commandsService));
@@ -39,14 +34,13 @@ public class NicomedLongPullingBot extends TelegramLongPollingBot {
 
     @Override
     public String getBotToken() {
-        return TOKEN;
+        return config.getToken();
     }
 
     @Override
     public String getBotUsername() {
-        return USER_NAME;
+        return config.getName();
     }
-
 
     @Override
     public void onUpdateReceived(Update update) {
