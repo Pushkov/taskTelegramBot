@@ -23,7 +23,7 @@ SpringBoot, SpringDAtaJpa, TheMyLeaf, Lombok, VueJS, BootstrapVue, Vuex, SpringT
 </p>
 <hr>
 <h3>Старт приложения:</h3>
-<p><b>ATTENTION -</b> Перед запуском приложения в терминале перейти в папку <b><i>frontend</i></b> и выполнить команду: <b><i>npm install</i></b>.
+<p><b>ATTENTION -</b> <b><i>!!!</i></b>Для модуля <b><i>frontend</i></b> требуется установленный на компьютере <b><i>nodejs</i></b> <b><i> !!!</i></b>.<br/> Перед запуском приложения в терминале перейти в папку <b><i>frontend</i></b> и выполнить команду: <b><i>npm install</i></b>.
  При этом произойдет установка необходимых зависимостей для frontend-а.
 </p>
 <h4>Первый вариант использования (запуск из IDE как MVC приложение) </h4>
